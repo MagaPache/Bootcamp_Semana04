@@ -5,12 +5,15 @@
  */
 package com.globant.bootcamp.semana04.model;
 
+import org.codehaus.jackson.annotate.JsonCreator;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 /**
  *
  * @author Usuario
  */
 public class Book {
-    
+
     private int id;
     private int isbn;
     private String title;
@@ -62,7 +65,5 @@ public class Book {
     public String toString() {
         return "Book{" + "id=" + id + ", isbn=" + isbn + ", title=" + title + ", price=" + price + '}';
     }
-    
-    
-    
+
 }
