@@ -66,4 +66,13 @@ public class Book {
         return "Book{" + "id=" + id + ", isbn=" + isbn + ", title=" + title + ", price=" + price + '}';
     }
 
+    public String getBookMock() {
+        String mock = "{\"id\":\"20\",\n"
+                + "\"isbn\":\"6500\",\n"
+                + "\"title\":\"PRINCIPITO\",\n"
+                + "\"price\":\"350.0\"}";
+
+        return mock;
+    }
+
 }

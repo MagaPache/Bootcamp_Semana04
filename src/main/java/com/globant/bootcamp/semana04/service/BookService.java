@@ -29,14 +29,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Path("/bookService")
 @Consumes("application/json")
 @Produces("application/json")
-public class BookService {
-
+public class BookService {    
+    
     private final DataSource dataSource;
 
     @Autowired
     public BookService(DataSource dataSource) {
         this.dataSource = dataSource;
-    }
+    }   
+
+    
+    
 
     @GET
     @Path("/listBooks")
@@ -59,6 +62,7 @@ public class BookService {
             conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(BookService.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
         return books;
     }
@@ -105,9 +109,9 @@ public class BookService {
 
     @PUT
     @Path("/updateBook")
-    public void updateBook(Book book) {
+    public void updateBook(Book book) throws SQLException {
 
-        try {
+       
             Connection conn = dataSource.getConnection();
             PreparedStatement stmt = conn.prepareStatement("update books set title=?, price=? where isbn=?");
             stmt.setString(1, book.getTitle());
@@ -116,16 +120,14 @@ public class BookService {
             stmt.executeUpdate();
             stmt.close();
             conn.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(BookService.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }
 
     @DELETE
     @Path("/deleteBook/{isbn}")
-    public void deleteBook(@PathParam("isbn") int isbn) {
+    public void deleteBook(@PathParam("isbn") int isbn) throws SQLException {
 
-        try {
+        
             Connection conn = dataSource.getConnection();
             PreparedStatement stmt = conn.prepareStatement("delete from BOOKS where isbn = ?");
             stmt.setInt(1, isbn);
@@ -133,9 +135,7 @@ public class BookService {
             stmt.close();
             conn.close();
 
-        } catch (SQLException ex) {
-            Logger.getLogger(BookService.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
 
     }
 
